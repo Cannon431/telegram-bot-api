@@ -4,7 +4,7 @@ namespace Justify\TelegramBotApi\Types;
 
 /**
  * Telegram clients will remove the current custom keyboard and display the default letter-keyboard
- * 
+ *
  * @link https://core.telegram.org/bots/api#replykeyboardremove
  */
 class ReplyKeyboardRemove extends ReplyMarkup
@@ -16,7 +16,7 @@ class ReplyKeyboardRemove extends ReplyMarkup
 
     /**
      * Class constructor
-     * 
+     *
      * @param array $optional array of optional params
      */
     public function __construct(array $optional = [])
@@ -26,7 +26,7 @@ class ReplyKeyboardRemove extends ReplyMarkup
 
     /**
      * Builds params for request
-     * 
+     *
      * @return string params
      */
     public function getParams()

@@ -9,6 +9,8 @@ abstract class ReplyMarkup
 {
     /**
      * Builds params
+     *
+     * @return mixed params
      */
     abstract public function getParams();
 }

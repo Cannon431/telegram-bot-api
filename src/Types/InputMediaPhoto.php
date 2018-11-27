@@ -3,20 +3,20 @@
 namespace Justify\TelegramBotApi\Types;
 
 /**
- * Represents a video to be sent
- * 
- * @link https://core.telegram.org/bots/api#inputmediavideo
+ * Represents a photo to be sent
+ *
+ * @link https://core.telegram.org/bots/api#inputmediaphoto
  */
-class InputMediaVideo extends InputMedia
+class InputMediaPhoto extends InputMedia
 {
     /**
      * Determines type of input media
      */
-    const TYPE = 'video';
+    const TYPE = 'photo';
 
     /**
      * Builds params for request
-     * 
+     *
      * @return array params
      */
     public function getParams()

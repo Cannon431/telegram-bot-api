@@ -8,7 +8,7 @@ namespace Justify\TelegramBotApi;
 class Client
 {
     /**
-     * @var Justify\TelegramBotApi\Api
+     * @var \Justify\TelegramBotApi\Api
      */
     private $api;
 
@@ -29,6 +29,8 @@ class Client
 
     /**
      * Class constructor
+     *
+     * @param string $token Telegram bot API token
      */
     public function __construct($token)
     {
@@ -37,7 +39,8 @@ class Client
 
     /**
      * Runs long polling
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @param integer $timeout timeout between getting update
      */
     public function polling($timeout = 1)
@@ -60,8 +63,8 @@ class Client
 
     /**
      * Binds $handler on $command
-     * 
-     * @param string $command command (text to wich adds slash)
+     *
+     * @param string $command command (text to which adds slash)
      * @param \Closure $handler handler triggers on $command
      */
     public function command($command, \Closure $handler)
@@ -79,7 +82,7 @@ class Client
 
     /**
      * Binds $handler on $text
-     * 
+     *
      * @param string $text text
      * @param \Closure $handler handler triggers on $text
      */
@@ -94,7 +97,7 @@ class Client
 
     /**
      * Binds $handler on $regexp
-     * 
+     *
      * @param string $regexp regular expression
      * @param \Closure $handler handler triggers on coincidence with $regexp
      */
@@ -109,7 +112,7 @@ class Client
 
     /**
      * Binds $handler on $type
-     * 
+     *
      * @param string $type type of message
      * @param \Closure $handler handler triggers if message have $type
      */
@@ -123,8 +126,8 @@ class Client
     }
 
     /**
-     * Handler which triggers on recieved update
-     * 
+     * Handler which triggers on received update
+     *
      * @param \Closure $handler
      */
     public function handler(\Closure $handler)
@@ -134,7 +137,7 @@ class Client
 
     /**
      * Checks and triggers events
-     * 
+     *
      * @param object $update
      */
     private function checkEvents($update)
@@ -161,8 +164,8 @@ class Client
 
                 case 'type':
                     if (isset($message->$event['_type'])) {
-                        $event['handler']($message);  
-                        $this->delivered[] = $update->update_id; 
+                        $event['handler']($message);
+                        $this->delivered[] = $update->update_id;
                     }
 
                     break;
@@ -172,7 +175,7 @@ class Client
 
     /**
      * Runs handlers
-     * 
+     *
      * @param object $update
      */
     private function runHandlers($update)
@@ -186,12 +189,11 @@ class Client
 
     /**
      * Allows call methods from $this->api object
-     * 
+     *
      * @param string $name method name
      * @param array $args arguments of $this->api->$name method
-     * 
-     * @throws Justify\TelegramBotApi\Exception
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return mixed
      */
     public function __call($name, array $args = [])
@@ -200,6 +202,6 @@ class Client
             return call_user_func_array([$this->api, $name], $args);
         }
 
-       throw new Exception("Method \"$name\" doesn't exist");
+        throw new Exception("Method \"$name\" doesn't exist");
     }
 }

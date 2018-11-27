@@ -8,13 +8,13 @@ use Justify\TelegramBotApi\Types\InputMediaVideo;
 
 /**
  * Telegram bot API requests wrapper
- * 
+ *
  * @link https://core.telegram.org/bots/api
  */
 class Api
 {
     /**
-     * @var string telegram bot API token
+     * @var string Telegram bot API token
      */
     private $token;
 
@@ -25,6 +25,8 @@ class Api
 
     /**
      * Class constructor
+     *
+     * @param string $token Telegram bot API token
      */
     public function __construct($token)
     {
@@ -33,11 +35,12 @@ class Api
 
     /**
      * Receives incoming updates using long polling
-     * 
+     *
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#getupdates
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function getUpdates(array $optional = [])
@@ -47,9 +50,10 @@ class Api
 
     /**
      * A simple method for testing your bot's auth token
-     * 
+     *
      * @link https://core.telegram.org/bots/api#getme
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function getMe()
@@ -59,13 +63,14 @@ class Api
 
     /**
      * Method sends text messages
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param string $text text of the message to be sent
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendmessage
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendMessage($chatId, $text, array $optional = [])
@@ -77,14 +82,15 @@ class Api
 
     /**
      * Forwards messages of any kind
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param integer $fromChatId identifier for the chat where the original message was sent
      * @param integer $messageId message identifier in the chat specified in from_chat_id
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#forwardmessage
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function forwardMessage($chatId, $fromChatId, $messageId, array $optional = [])
@@ -100,13 +106,14 @@ class Api
 
     /**
      * Sends photo
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param string $photo photo to send. Pass string with id of photo or photo URL or pass file name
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendphoto
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendPhoto($chatId, $photo, array $optional = [])
@@ -127,13 +134,14 @@ class Api
 
     /**
      * Sends audio. Accepts .mp3 format up to 50 mb in size
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param string $audio audio to send. Pass string with id of audio or audio URL or pass file name
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendaudio
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendAudio($chatId, $audio, array $optional = [])
@@ -154,13 +162,14 @@ class Api
 
     /**
      * Sends general files. Accepts any type up to 50 mb in size
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param string $document document to send. Pass string with id of document or document URL or pass file name
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#senddocument
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendDocument($chatId, $document, array $optional = [])
@@ -181,13 +190,14 @@ class Api
 
     /**
      * Sends video file. Accepts .mp4 format up to 50 mb in size
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param string $video video to send. Pass string with id of video or video URL or pass file name
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendvideo
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendVideo($chatId, $video, array $optional = [])
@@ -208,13 +218,14 @@ class Api
 
     /**
      * Sends animation files (GIF or H.264/MPEG-4 AVC video without sound). Accepts up to 50 mb in size
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param string $animation animation to send. Pass string with id of animation or animation URL or pass file name
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendanimation
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendAnimation($chatId, $animation, array $optional = [])
@@ -235,13 +246,14 @@ class Api
 
     /**
      * Sends voice. Accepts .ogg format encoded with OPUS up to 50 mb in size
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param string $voice voice to send. Pass string with id of voice or voice URL or pass file name
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendvoice
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendVoice($chatId, $voice, array $optional = [])
@@ -262,13 +274,14 @@ class Api
 
     /**
      * Send a group of photos or videos as an album
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param string $videoNote video note to send. Pass string with id of voice or voice URL or pass file name
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendvideonote
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendVideoNote($chatId, $videoNote, array $optional = [])
@@ -289,14 +302,14 @@ class Api
 
     /**
      * Send a group of photos or videos as an album
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param array $media array describing photos and videos to be sent, must include 2–10 items
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendmediagroup
-     * 
-     * @throws Justify\TelegramBotApi\Exception
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendMediaGroup($chatId, array $media, array $optional = [])
@@ -323,14 +336,15 @@ class Api
 
     /**
      * Sends point on the map
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param float $latitude latitude of the location
      * @param float $longitude longitude of the location
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendlocation
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendLocation($chatId, $latitude, $longitude, array $optional = [])
@@ -346,13 +360,14 @@ class Api
 
     /**
      * Sends sticker. Accepts .webp format
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param string $sticker sticker to send. Pass string with id of video or pass file name
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendsticker
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendSticker($chatId, $sticker, array $optional = [])
@@ -373,16 +388,17 @@ class Api
 
     /**
      * Sends information about a venue
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param float $latitude latitude of the location
      * @param float $longitude longitude of the location
      * @param string $title name of the venue
      * @param string $address address of the venue
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendvenue
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendVenue($chatId, $latitude, $longitude, $title, $address, array $optional = [])
@@ -400,14 +416,15 @@ class Api
 
     /**
      * Sends phone contact
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param string $phoneNumber contact's phone number
      * @param string $firstName contact's first name
      * @param array $optional optional params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendcontact
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendContact($chatId, $phoneNumber, $firstName, array $optional = [])
@@ -424,12 +441,13 @@ class Api
     /**
      * Use this method when you need to tell the user that something is happening on the bot's side
      * The status is set for 5 seconds or less
-     * 
+     *
      * @param integer|string $chatId unique identifier for the target chat or username of the target channel
      * @param string $action type of action to broadcast
-     * 
+     *
      * @link https://core.telegram.org/bots/api#sendchataction
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendChatAction($chatId, $action)
@@ -439,11 +457,12 @@ class Api
 
     /**
      * Use this method to get basic info about a file and prepare it for downloading
-     * 
+     *
      * @param integer $fileId file identifier to get info about
-     * 
+     *
      * @link https://core.telegram.org/bots/api#getfile
-     * 
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function getFile($fileId)
@@ -453,11 +472,13 @@ class Api
 
     /**
      * Clears updates from getUpdates method
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      */
     public function clearUpdates()
     {
         $updates = $this->getUpdates()->result;
-        
+
         if (!empty($updates)) {
             $lastUpdateId = array_pop($updates)->update_id;
 
@@ -467,14 +488,14 @@ class Api
 
     /**
      * Sends custom request
-     * 
+     *
      * @var string $method calls method
      * @var array $params optional, request params
      * @var array $curlParams optional, CURL option params
-     * 
+     *
      * @link https://core.telegram.org/bots/api#making-requests
-     * 
-     * @throws Justify\TelegramBotApi\Exception
+     *
+     * @throws \Justify\TelegramBotApi\Exception
      * @return object|array response from sent request
      */
     public function sendRequest($method, array $params = [], array $culrParams = [])
@@ -510,7 +531,7 @@ class Api
     }
 
     /**
-     * Use this method if you want receive information in array 
+     * Use this method if you want receive information in array
      */
     public function setResponseArray()
     {
@@ -518,9 +539,9 @@ class Api
     }
 
     /**
-     * Use this method if you want receive information in Std object 
+     * Use this method if you want receive information in Std object
      */
-    public function setResposeObject()
+    public function setResponseObject()
     {
         $this->responseArray = false;
     }

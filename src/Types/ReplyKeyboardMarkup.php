@@ -4,7 +4,7 @@ namespace Justify\TelegramBotApi\Types;
 
 /**
  * Represents a custom keyboard with reply options
- * 
+ *
  * @link https://core.telegram.org/bots/api#replykeyboardmarkup
  */
 class ReplyKeyboardMarkup extends ReplyMarkup
@@ -21,7 +21,7 @@ class ReplyKeyboardMarkup extends ReplyMarkup
 
     /**
      * Class constructor
-     * 
+     *
      * @param array $optional optional params
      */
     public function __construct(array $optional = [])
@@ -31,10 +31,12 @@ class ReplyKeyboardMarkup extends ReplyMarkup
 
     /**
      * Creates row of buttons
-     * 
+     *
      * There is a possibility to use chaining
-     * 
+     *
      * @param array $buttons array of buttons
+     *
+     * @return \Justify\TelegramBotApi\Types\ReplyKeyboardMarkup
      */
     public function row(...$buttons)
     {
@@ -45,7 +47,7 @@ class ReplyKeyboardMarkup extends ReplyMarkup
 
     /**
      * Builds params for request
-     * 
+     *
      * @return string params
      */
     public function getParams()

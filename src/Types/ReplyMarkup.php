@@ -5,7 +5,7 @@ namespace Justify\TelegramBotApi\Types;
 /**
  * Abstract class denoting keyboards
  */
-abstract class ReplyMarkup
+abstract class ReplyMarkup implements TypeInterface
 {
     /**
      * Builds params

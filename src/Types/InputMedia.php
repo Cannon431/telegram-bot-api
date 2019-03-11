@@ -7,7 +7,7 @@ namespace Justify\TelegramBotApi\Types;
  *
  * @link https://core.telegram.org/bots/api#inputmedia
  */
-abstract class InputMedia
+abstract class InputMedia implements TypeInterface
 {
     /**
      * @var string $media file to send
@@ -32,4 +32,6 @@ abstract class InputMedia
         $this->media = $media;
         $this->optional = $optional;
     }
+
+    abstract public function getParams();
 }

@@ -3,8 +3,7 @@
 namespace Justify\TelegramBotApi;
 
 use Justify\TelegramBotApi\Types\ReplyMarkup;
-use Justify\TelegramBotApi\Types\InputMediaPhoto;
-use Justify\TelegramBotApi\Types\InputMediaVideo;
+use Justify\TelegramBotApi\Types\InputMedia;
 
 /**
  * Telegram bot API requests wrapper
@@ -13,6 +12,19 @@ use Justify\TelegramBotApi\Types\InputMediaVideo;
  */
 class Api
 {
+    /**
+     * Telegram Bot API URL
+     *
+     * 1st %s - token
+     * 2nd %s - method
+     */
+    const URL = 'https://api.telegram.org/bot%s/%s?';
+
+    /**
+     * Maximum possible count of group items
+     */
+    const MAX_MEDIA_GROUP_ITEMS = 10;
+
     /**
      * @var string Telegram bot API token
      */
@@ -314,14 +326,14 @@ class Api
      */
     public function sendMediaGroup($chatId, array $media, array $optional = [])
     {
-        if (count($media) > 10) {
-            throw new Exception('Too much messages to send as an album, need 10');
+        if (count($media) > self::MAX_MEDIA_GROUP_ITEMS) {
+            throw new Exception('Too much messages to send as an album, need ' . self::MAX_MEDIA_GROUP_ITEMS);
         }
 
         $params = $optional;
 
         foreach ($media as $item) {
-            if ($item instanceof InputMediaPhoto || $item instanceof InputMediaVideo) {
+            if ($item instanceof InputMedia) {
                 $params['media'][] = $item->getParams();
             } else {
                 $params['media'][] = $item;
@@ -504,7 +516,7 @@ class Api
             $params['reply_markup'] = $params['reply_markup']->getParams();
         }
 
-        $ch = curl_init($this->getUrl() . $method . '?' . http_build_query($params));
+        $ch = curl_init($this->getUrl($method, $params));
 
         if (empty($culrParams)) {
             $culrParams = [
@@ -547,10 +559,14 @@ class Api
     }
 
     /**
-     * @return string URL to which need to send a request
+     * URL to which need to send a request
+     *
+     * @param string $method method name
+     * @param array $params request params
+     * @return string
      */
-    private function getUrl()
+    private function getUrl($method, array $params = [])
     {
-        return 'https://api.telegram.org/bot' . $this->token . '/';
+        return sprintf(self::URL, $this->token, $method) . http_build_query($params);
     }
 }

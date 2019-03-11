@@ -10,7 +10,7 @@ class Client
     /**
      * @var \Justify\TelegramBotApi\Api
      */
-    private $api;
+    public $api;
 
     /**
      * @var array array of events
@@ -23,9 +23,9 @@ class Client
     private $handlers = [];
 
     /**
-     * @var array array of delivered updates
+     * @var array array of checked updates
      */
-    private $delivered = [];
+    private $checked = [];
 
     /**
      * Class constructor
@@ -49,7 +49,7 @@ class Client
             $updates = $this->api->getUpdates();
 
             foreach ($updates->result as $update) {
-                if (in_array($update->update_id, $this->delivered)) {
+                if (in_array($update->update_id, $this->checked)) {
                     continue;
                 }
 
@@ -145,32 +145,53 @@ class Client
         $message = $update->message;
 
         foreach ($this->events as $event) {
-            switch ($event['type']) {
-                case 'text':
-                    if (isset($message->text) && $message->text === $event['text']) {
-                        $event['handler']($message);
-                        $this->delivered[] = $update->update_id;
-                    }
-
-                    break;
-
-                case 'regexp':
-                    if (isset($message->text) && preg_match_all('#' . $event['regexp'] . '#u', $message->text, $m)) {
-                        $event['handler']($message, $m);
-                        $this->delivered[] = $update->update_id;
-                    }
-
-                    break;
-
-                case 'type':
-                    if (isset($message->$event['_type'])) {
-                        $event['handler']($message);
-                        $this->delivered[] = $update->update_id;
-                    }
-
-                    break;
+            if ($this->isText($message, $event) || $this->isType($event)) {
+                if ($this->isRegexp($message, $event, $m)) {
+                    $event['handler']($message, $m);
+                } else {
+                    $event['handler']($message);
+                }
             }
         }
+
+        $this->checked[] = $update->update_id;
+    }
+
+    /**
+     * Checks if type of incoming update is "text"
+     *
+     * @param object $message message object
+     * @param array $event event
+     * @return bool
+     */
+    private function isText($message, array $event)
+    {
+        return isset($message->text) && $message->text === $event['text'];
+    }
+
+    /**
+     * Checks if type of incoming update is "regexp"
+     *
+     * @param object $message message object
+     * @param array $event event
+     * @param array $m will record result from preg_match_all function
+     * @return bool
+     */
+    private function isRegexp($message, $event, &$m)
+    {
+        return isset($message->text) && isset($even['regexp']) &&
+            preg_match_all('#' . $event['regexp'] . '#u', $message->text, $m);
+    }
+
+    /**
+     * Checks if type of incoming update is "type"
+     *
+     * @param array $event event
+     * @return bool
+     */
+    private function isType($event)
+    {
+        return isset($message->$event['_type']);
     }
 
     /**
@@ -184,7 +205,7 @@ class Client
             $handler($update->message);
         }
 
-        $this->delivered[] = $update->update_id;
+        $this->checked[] = $update->update_id;
     }
 
     /**
@@ -205,3 +226,4 @@ class Client
         throw new Exception("Method \"$name\" doesn't exist");
     }
 }
+
